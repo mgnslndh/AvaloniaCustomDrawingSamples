@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>11</LangVersion>
+    <AvaloniaVersion>11.0.5</AvaloniaVersion>
+  </PropertyGroup>
+</Project>
