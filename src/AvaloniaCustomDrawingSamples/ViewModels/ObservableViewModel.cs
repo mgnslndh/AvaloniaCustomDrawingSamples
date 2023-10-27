@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvaloniaCustomDrawingSamples.ViewModels
 {
-    internal partial class ObservableViewModel : ObservableObject
+    public partial class ObservableViewModel : ObservableObject
     {
     }
 }

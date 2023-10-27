@@ -17,8 +17,5 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <TextBlock
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Text="{Binding Greeting}" />
+    <ContentControl Content="{Binding SampleExplorer}" />
 </UserControl>

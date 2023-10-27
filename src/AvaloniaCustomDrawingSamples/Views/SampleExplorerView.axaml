@@ -1,0 +1,105 @@
+<UserControl
+    x:Class="AvaloniaCustomDrawingSamples.Views.SampleExplorerView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:AvaloniaCustomDrawing.Controls;assembly=AvaloniaCustomDrawing"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:AvaloniaCustomDrawingSamples.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:SampleExplorerViewModel"
+    mc:Ignorable="d">
+    <Design.DataContext>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
+        <vm:SampleExplorerViewModel />
+    </Design.DataContext>
+    <SplitView DisplayMode="Inline" IsPaneOpen="True">
+        <SplitView.Pane>
+            <ListBox ItemsSource="{Binding Samples}" SelectedItem="{Binding SelectedSample}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SampleViewModel">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid ColumnDefinitions="*,Auto,300">
+                <DockPanel Grid.Column="0">
+                    <Border
+                        Padding="4"
+                        Background="LightGray"
+                        DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <Button Command="{Binding #Viewport.PanToOrigin}" Content="Pan To Origin" />
+                            <Button Command="{Binding #Viewport.ZoomToScene}" Content="Zoom To Scene" />
+                        </StackPanel>
+                    </Border>
+                    <controls:ViewportControl Name="Viewport" Drawable="{Binding SelectedSample.Drawable, FallbackValue={x:Null}}" />
+                </DockPanel>
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="LightGray"
+                    ResizeDirection="Columns"
+                    ShowsPreview="False" />
+                <ItemsControl Grid.Column="2" ItemsSource="{Binding SelectedSample.Categories, FallbackValue={x:Null}}">
+                    <ItemsControl.Styles>
+                        <Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </ItemsControl.Styles>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Expander
+                                Margin="0"
+                                Padding="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderBrush="Transparent"
+                                BorderThickness="0,0,0,0"
+                                Header="{Binding Name}"
+                                IsExpanded="True">
+                                <DataGrid
+                                    Margin="0,0,0,0"
+                                    VerticalAlignment="Stretch"
+                                    CanUserReorderColumns="True"
+                                    CanUserResizeColumns="True"
+                                    CanUserSortColumns="True"
+                                    ClipboardCopyMode="IncludeHeader"
+                                    GridLinesVisibility="All"
+                                    HeadersVisibility="None"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding Properties}"
+                                    SelectionMode="Single">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Width="*"
+                                            Binding="{Binding Name}"
+                                            Header="Name" />
+                                        <DataGridTextColumn
+                                            Width="*"
+                                            Binding="{Binding Value}"
+                                            Header="Value" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+
+</UserControl>

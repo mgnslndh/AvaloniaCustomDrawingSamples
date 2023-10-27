@@ -1,0 +1,10 @@
+{
+  "help": "https://go.microsoft.com/fwlink/?linkid=866610"
+  "root": true,
+  "dependentFileProviders": {
+    "add": {
+      // this rule makes it possible to nest A.B.cs under A.cs
+      "pathSegment": {}
+    }
+  }
+}
